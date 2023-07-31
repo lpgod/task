@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  auth-service:
+    image: myusername/project-auth-service:latest
+    ports:
+      - "50053:50053"
+
+  user-service:
+    image: myusername/project-user-service:latest
+    ports:
+      - "50051:50051"
+
+  todolist-service:
+    image: myusername/project-todolist-service:latest
+    ports:
+      - "50052:50052"
+
+  api-gateway:
+    image: myusername/project-api-gateway:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - user-service
+      - todolist-service

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/myusername/project/proto";
+
+service Auth {
+  // GenerateToken generates a new access token for the given user credentials.
+  rpc GenerateToken(LoginRequest) returns (TokenResponse) {}
+
+  // ValidateToken validates the given access token and returns the user claims if valid.
+  rpc ValidateToken(ValidateTokenRequest) returns (TokenClaims) {}
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message TokenResponse {
+  string access_token = 1;
+  int64 expires_in = 2;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message TokenClaims {
+  int64 user_id = 1;
+  string name = 2;
+  string email = 3;
+  // Add more user-related claims as needed
+}

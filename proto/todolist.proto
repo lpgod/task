@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "task/proto";
+
+service TodoList {
+  // CreateTodoList creates a new todo list for the given user.
+  rpc CreateTodoList(CreateTodoListRequest) returns (TodoListResponse) {}
+
+  // GetTodoList retrieves a todo list based on the provided todo list ID.
+  rpc GetTodoList(GetTodoListRequest) returns (TodoListResponse) {}
+}
+
+message CreateTodoListRequest {
+  string name = 1;
+  string description = 2;
+  int64 user_id = 3;
+  repeated TodoItem todo_items = 4;
+}
+
+message GetTodoListRequest {
+  int64 todo_list_id = 1;
+}
+
+message TodoListResponse {
+  int64 todo_list_id = 1;
+  string name = 2;
+  string description = 3;
+  int64 user_id = 4;
+  repeated TodoItem todo_items = 5;
+}
+
+message TodoItem {
+  string title = 1;
+  int32 priority = 2;
+}
